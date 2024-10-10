@@ -1,6 +1,6 @@
 package com.no_country.demo.entities;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +15,12 @@ import java.util.List;
 @Entity
 public class Student extends UserEntity {
     private Boolean statusStudent;
+    @ManyToOne
+    @JoinColumn(name = "id_course")
     private Course currentCourse;
-    private List<Evaluacion> evaluations;
+//    private List<Evaluacion> evaluations;
     private Date dateRegistrationCourse;
+    @ManyToOne()
+    @JoinColumn(name = "id_tutor")
     private Tutor tutor;
 }

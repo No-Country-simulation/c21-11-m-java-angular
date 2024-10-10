@@ -1,6 +1,6 @@
 package com.no_country.demo.entities;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Tutor extends UserEntity {
+
+    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL)
     private List<Student> students;
     private String detail;
 }
