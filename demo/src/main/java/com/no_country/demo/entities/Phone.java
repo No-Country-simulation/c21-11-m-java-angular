@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Legajo {
-    private int legajo;
+public class Phone {
+    private String phone;
 }

@@ -6,11 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Telefono {
-    private String telefono;
+public class Course {
+    private String course;
+    private List<Subject> subjects;
+    private String detail;
+    private List<Student> students;
 }

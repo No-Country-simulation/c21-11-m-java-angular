@@ -13,10 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Alumno extends Usuario {
-    private Boolean estadoAlumno;
-    private Curso cursoActual;
-    private List<Evaluacion> evaluaciones;
-    private Date fechaInscripcionCurso;
+public class Student extends UserEntity {
+    private Boolean statusStudent;
+    private Course currentCourse;
+    private List<Evaluacion> evaluations;
+    private Date dateRegistrationCourse;
     private Tutor tutor;
 }

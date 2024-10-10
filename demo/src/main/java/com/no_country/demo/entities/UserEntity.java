@@ -1,7 +1,7 @@
 package com.no_country.demo.entities;
 
-import com.no_country.demo.entities.enums.EstadoUsuario;
 import com.no_country.demo.entities.enums.Rol;
+import com.no_country.demo.entities.enums.UserState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,17 +12,17 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
+public class UserEntity {
 
-    private String nombre;
-    private String apellido;
-    private String contraseña;
+    private String name;
+    private String lastname;
+    private String password;
     private Dni dni;
-    private Domicilio domicilio;
+    private Adress adress;
     private Email email;
-    private Date fechaDeNacimiento;
-    private Telefono telefono;
+    private Date birthdate;
+    private Phone phone;
     private Rol rol;
-    private EstadoUsuario estadoUsuario;
+    private UserState userState;
 
 }

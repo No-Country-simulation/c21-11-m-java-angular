@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Domicilio {
-    private String domicilio;
+public class Teacher extends UserEntity {
+    private File file;
+    private List<Subject> subjects;
 
 }

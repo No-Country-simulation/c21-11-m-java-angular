@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Tutor extends Usuario {
-    private List<Alumno> alumnos;
-    private String detalle;
+public class Tutor extends UserEntity {
+    private List<Student> students;
+    private String detail;
 }

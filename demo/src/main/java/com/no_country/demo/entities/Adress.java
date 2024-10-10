@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Localidad {
-    private String localidad;
+public class Adress {
+    private String adress;
+
 }

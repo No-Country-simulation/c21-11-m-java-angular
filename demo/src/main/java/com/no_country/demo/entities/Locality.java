@@ -6,14 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Profesor extends Usuario {
-    private Legajo legajo;
-    private List<Asignatura> asignaturas;
-
+public class Locality {
+    private String locality;
 }
