@@ -16,7 +16,7 @@ import java.util.List;
 public class Student extends UserEntity {
     private Boolean statusStudent;
     private Course currentCourse;
-    private List<Evaluacion> evaluations;
+    private List<Evaluation> evaluations;
     private Date dateRegistrationCourse;
     private Tutor tutor;
 }

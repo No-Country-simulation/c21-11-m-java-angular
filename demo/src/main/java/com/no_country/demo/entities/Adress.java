@@ -13,5 +13,4 @@ import lombok.Setter;
 @Entity
 public class Adress {
     private String adress;
-
 }

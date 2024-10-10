@@ -19,7 +19,7 @@ public class Subject {
     private Teacher teacher;
     private String topics;
     private String description;
-    private List<Evaluacion> evaluations;
+    private List<Evaluation> evaluations;
     private Date schedule;
     private List<DayWeek> days;
 }
