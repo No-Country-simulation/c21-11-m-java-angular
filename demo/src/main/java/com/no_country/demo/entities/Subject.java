@@ -30,4 +30,6 @@ public class Subject {
     private Date schedule;
     @Enumerated(EnumType.STRING)
     private List<DayWeek> days;
+    @OneToMany(mappedBy = "subject")
+    private List<Evaluation> evaluations;
 }
