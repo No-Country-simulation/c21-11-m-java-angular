@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,4 +34,6 @@ public class Subject {
     private List<DayWeek> days;
     @OneToMany(mappedBy = "subject")
     private List<Evaluation> evaluations;
+    @ManyToMany(mappedBy = "subjects")
+    private List<Course> courses;
 }

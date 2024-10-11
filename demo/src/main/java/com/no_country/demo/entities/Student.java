@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,11 +16,15 @@ import java.util.List;
 @Entity
 public class Student extends UserEntity {
     private Boolean statusStudent;
+    private Date dateRegistrationCourse;
+
     @ManyToOne
     @JoinColumn(name = "id_course")
     private Course currentCourse;
-//    private List<Evaluacion> evaluations;
-    private Date dateRegistrationCourse;
+
+    @OneToMany(mappedBy = "student")
+    private List<Evaluation> evaluations;
+
     @ManyToOne()
     @JoinColumn(name = "id_tutor")
     private Tutor tutor;
