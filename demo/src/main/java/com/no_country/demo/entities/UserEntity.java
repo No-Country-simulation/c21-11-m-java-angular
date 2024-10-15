@@ -8,19 +8,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
+//@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@SuperBuilder
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //para mostrar en una sola tabla userEntity
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-abstract class UserEntity {
+public abstract class UserEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +30,7 @@ abstract class UserEntity {
     private String name;
     private String lastname;
     private String password;
+    private String locality;
     @OneToOne
     @JoinColumn(name="id_dni")
     private Dni dni;

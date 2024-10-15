@@ -18,4 +18,8 @@ public class Dni {
     private int dni;
     @OneToOne(mappedBy="dni", cascade = CascadeType.ALL)
     private UserEntity user;
+
+    public Dni(Integer dni) {
+        this.dni = dni;
+    }
 }

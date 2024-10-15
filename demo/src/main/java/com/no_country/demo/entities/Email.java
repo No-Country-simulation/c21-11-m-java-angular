@@ -1,10 +1,7 @@
 package com.no_country.demo.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -18,4 +15,8 @@ public class Email {
     private String email;
     @OneToOne(mappedBy="email", cascade = CascadeType.ALL)
     private UserEntity user;
+
+    public Email(String email) {
+        this.email = email;
+    }
 }
