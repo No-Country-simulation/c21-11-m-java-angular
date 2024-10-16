@@ -1,5 +1,6 @@
 package com.no_country.demo.entities;
 
+import com.no_country.demo.dto.DataSubject;
 import com.no_country.demo.entities.enums.DayWeek;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,10 +27,18 @@ public class Subject {
     private Teacher teacher;
     private String topics;
     private String description;
-//    private List<Evaluacion> evaluations;
     private Date schedule;
     @Enumerated(EnumType.STRING)
     private List<DayWeek> days;
     @OneToMany(mappedBy = "subject")
     private List<Evaluation> evaluations;
+
+    public Subject(DataSubject dataSubject){
+        subject = dataSubject.name();
+        topics = dataSubject.topics();
+        description = dataSubject.description();
+        schedule = dataSubject.schedule();
+        days = dataSubject.days();
+        evaluations = dataSubject.evaluation();
+    }
 }
