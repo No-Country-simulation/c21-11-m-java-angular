@@ -13,6 +13,16 @@ export const routes: Routes = [
           ),
         children: [
           {
+
+
+            path: 'List',
+            title: 'Post user interface',
+            loadComponent: () =>
+              import('./views/list-user/list-user.component').then(
+                (m) => m.ListUserComponent
+              ),
+          },
+          {
             path: 'user/:id',
             title: 'Get user interface',
             loadComponent: () =>
@@ -49,12 +59,8 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
 
-      {
-        path: 'post',
-        title: 'Post user interface',
-        loadComponent: () =>
-          import('./views/users/save-user/save-user.component').then(
-            (m) => m.SaveUserComponent
-          ),
-      },
+     
+
+
+     
 ];
