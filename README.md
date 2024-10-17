@@ -99,4 +99,7 @@ mvn spring-boot:run -D spring-boot.run.profiles=dev
 
 API - http://localhost:8080/swagger-ui/index.html
 
+falta la configuracion de mySQL ...
+y la de las variables de entorno
+
   
