@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,19 +20,20 @@ public class Subject {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-//  sugerencia de cambiar el nombre de las variablees que se refiene al nombre
-//  de la clase a name por buena practica
     private String subject;
     @ManyToOne
     @JoinColumn(name = "id_teacher")
     private Teacher teacher;
     private String topics;
     private String description;
+//    private List<Evaluacion> evaluations;
     private Date schedule;
     @Enumerated(EnumType.STRING)
     private List<DayWeek> days;
     @OneToMany(mappedBy = "subject")
     private List<Evaluation> evaluations;
+    @ManyToMany(mappedBy = "subjects")
+    private List<Course> courses;
 
     public Subject(DataSubject dataSubject){
         subject = dataSubject.name();
