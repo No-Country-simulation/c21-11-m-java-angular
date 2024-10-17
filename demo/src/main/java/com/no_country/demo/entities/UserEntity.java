@@ -45,4 +45,15 @@ public abstract class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserState userState;
 
+    @Column(name = "is_enable")
+    private boolean isEnable;
+
+    @Column(name = "account_no_expired")
+    private boolean accountNoExpired;
+
+    @Column(name = "account_locked")
+    private boolean accounLocked;
+
+    @Column(name = "credential_no_expired")
+    private boolean credentialNoExpired;
 }
