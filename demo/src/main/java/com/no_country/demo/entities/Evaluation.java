@@ -18,7 +18,9 @@ public class Evaluation {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-//    private Student student; en el diagrama no estan relacionados
+    @ManyToOne
+    @JoinColumn(name = "id_student")
+    private Student student;
     @Enumerated(EnumType.STRING)
     private TypeEvaluation typeEvaluation;
     @ManyToOne
@@ -26,6 +28,7 @@ public class Evaluation {
     private Subject subject;
     private Date dateEvaluation;
     private String topicsEvaluation;
-//    private Qualification qualification; no seria mejor long o un numero con decimales
+    @Enumerated(EnumType.ORDINAL)
+    private Qualification qualification;
     private String comentario;
 }

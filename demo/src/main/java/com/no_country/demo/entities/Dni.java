@@ -1,21 +1,20 @@
 package com.no_country.demo.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Dni {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private int dni;
-    @OneToOne(mappedBy="dni", cascade = CascadeType.ALL)
+    private String dni;
+    @OneToOne(mappedBy="dni")
     private UserEntity user;
+
 }
