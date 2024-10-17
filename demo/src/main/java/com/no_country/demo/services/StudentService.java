@@ -1,6 +1,7 @@
 package com.no_country.demo.services;
 
 import com.no_country.demo.dto.student.CreateStudentDTO;
+import com.no_country.demo.dto.student.GetStudentDTO;
 import com.no_country.demo.dto.student.UpdateStudentDTO;
 import com.no_country.demo.entities.Student;
 import com.no_country.demo.entities.enums.UserState;
@@ -9,12 +10,7 @@ import com.no_country.demo.util.mapper.StudentMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -23,9 +19,9 @@ public class StudentService {
     private final StudentMapper studentMapper;
 
     // Create
-    public Student createStudent(CreateStudentDTO createStudentDTO) {
+    public void createStudent(CreateStudentDTO createStudentDTO) {
         Student newStudent=studentMapper.dtoToStudent(createStudentDTO);
-        return studentRepository.save(newStudent);
+        studentRepository.save(newStudent);
     }
 
     // Read All
@@ -33,15 +29,18 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    public GetStudentDTO getStudentDTO(Long id) {
+        return studentMapper.studentToDto(getStudentById(id));
+    }
     // Read By ID
     public Student getStudentById(Long id) {
         return studentRepository.findById(id).orElse(null);
     }
 
     // Update
-    public Student updateStudent(Long id,UpdateStudentDTO updateStudentDTO) {
+    public void updateStudent(Long id,UpdateStudentDTO updateStudentDTO) {
         Student student = getStudentById(id);
-
+        studentMapper.dtoToStudent(updateStudentDTO, student);
     }
 
     // Delete

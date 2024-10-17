@@ -14,12 +14,11 @@ import java.util.Date;
 
 @Getter
 @Setter
-//@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-//@Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 //para mostrar en una sola tabla userEntity
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class UserEntity {
@@ -30,19 +29,16 @@ public abstract class UserEntity {
     private String name;
     private String lastname;
     private String password;
-    private String locality;
-    @OneToOne
-    @JoinColumn(name="id_dni")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Locality locality;
+    @OneToOne(cascade = CascadeType.ALL)
     private Dni dni;
-    @ManyToOne
-    @JoinColumn(name="id_address")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Adress address;
-    @OneToOne
-    @JoinColumn(name="id_email")
+    @OneToOne(cascade = CascadeType.ALL)
     private Email email;
     private Date birthdate;
-    @OneToOne
-    @JoinColumn(name="id_phone")
+    @OneToOne(cascade = CascadeType.ALL)
     private Phone phone;
     @Enumerated(EnumType.STRING)
     private Rol rol;

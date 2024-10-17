@@ -1,14 +1,16 @@
 package com.no_country.demo.dto.student;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.CascadeType;
 import jakarta.validation.constraints.Email;
+import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-
-public record UpdateStudentDTO(
+@Builder
+public record GetStudentDTO(
+        @Schema(example = "1", description = "Student's unique identifier")
+        Long id,
         @Schema(example = "John ", description = "Student's updated username")
         String name,
         @Schema(example = "Doe ", description = "Student's updated last name")

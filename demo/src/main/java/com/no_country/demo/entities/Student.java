@@ -14,17 +14,14 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Student extends UserEntity {
-    private Boolean statusStudent;
     private Date dateRegistrationCourse;
 
-    @ManyToOne
-    @JoinColumn(name = "id_course")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Course currentCourse;
 
     @OneToMany(mappedBy = "student")
     private List<Evaluation> evaluations;
 
-    @ManyToOne()
-    @JoinColumn(name = "id_tutor")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Tutor tutor;
 }

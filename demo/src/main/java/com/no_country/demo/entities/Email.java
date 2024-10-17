@@ -7,16 +7,13 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 public class Email {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String email;
-    @OneToOne(mappedBy="email", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy="email")
     private UserEntity user;
-
-    public Email(String email) {
-        this.email = email;
-    }
 }
