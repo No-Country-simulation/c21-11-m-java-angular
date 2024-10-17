@@ -1,5 +1,6 @@
 package com.no_country.demo.entities;
 
+import com.no_country.demo.dto.DataSubject;
 import com.no_country.demo.entities.enums.DayWeek;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -20,8 +20,6 @@ public class Subject {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-//  sugerencia de cambiar el nombre de las variablees que se refiene al nombre
-//  de la clase a name por buena practica
     private String subject;
     @ManyToOne
     @JoinColumn(name = "id_teacher")
@@ -36,4 +34,13 @@ public class Subject {
     private List<Evaluation> evaluations;
     @ManyToMany(mappedBy = "subjects")
     private List<Course> courses;
+
+    public Subject(DataSubject dataSubject){
+        subject = dataSubject.name();
+        topics = dataSubject.topics();
+        description = dataSubject.description();
+        schedule = dataSubject.schedule();
+        days = dataSubject.days();
+        evaluations = dataSubject.evaluation();
+    }
 }
