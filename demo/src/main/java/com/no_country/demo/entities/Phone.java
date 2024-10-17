@@ -1,21 +1,19 @@
 package com.no_country.demo.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Phone {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private String phone;
-    @OneToOne(mappedBy="phone", cascade = CascadeType.ALL)
+    private Integer phone;
+    @OneToOne(mappedBy="phone")
     private UserEntity user;
 }
