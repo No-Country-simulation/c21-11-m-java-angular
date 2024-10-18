@@ -30,7 +30,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -51,7 +53,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByEmail(email)
+        UserEntity userEntity = userRepository.findByEmail_Email(email)
                 .orElseThrow(() -> new UsernameNotFoundException("El usuario " + email + " no existe"));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -106,13 +108,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .dni(request.getDni())
                 .address(request.getAddress())
                 .birthdate(request.getBirthdate())
-                .phone(request.getPhone())
+//                .phone(request.getPhone())
 //                .dateRegistrationCourse(request.getDateRegistrationCourse())
 //                .currentCourse(request.getCurrentCourse())
 //                .tutor(request.getTutor())
                 .rol(Rol.STUDENT)  // Asignar el rol de estudiante
                 .isEnable(true)
-                .accounLocked(false)
+                .accountLocked(false)
                 .accountNoExpired(true)
                 .credentialNoExpired(true)
                 .build();

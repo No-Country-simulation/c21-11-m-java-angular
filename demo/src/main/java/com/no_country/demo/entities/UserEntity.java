@@ -52,7 +52,7 @@ public abstract class UserEntity {
     private boolean accountNoExpired;
 
     @Column(name = "account_locked")
-    private boolean accounLocked;
+    private boolean accountLocked;
 
     @Column(name = "credential_no_expired")
     private boolean credentialNoExpired;

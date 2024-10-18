@@ -18,6 +18,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+@Component
 public class JwtUtils {
 
     @Value("${security.jwt.key.private}")
