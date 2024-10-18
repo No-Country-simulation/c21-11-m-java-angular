@@ -1,4 +1,4 @@
-package com.no_country.demo.dto.student;
+package com.no_country.demo.dto.user.student;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
