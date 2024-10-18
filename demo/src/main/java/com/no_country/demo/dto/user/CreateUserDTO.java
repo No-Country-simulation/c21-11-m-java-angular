@@ -1,16 +1,15 @@
-package com.no_country.demo.dto.student;
+package com.no_country.demo.dto.user;
 
-import jakarta.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.format.annotation.DateTimeFormat;
-
-public record CreateStudentDTO(
-//        @NotBlank(message = "username required")
-//        @Length(min = 1, max = 50, message = "Username must be between 1 and 255 characters")
+public record CreateUserDTO(
         @Schema(example = "John", description = "Student's username")
         String name,
         @Schema(example = "Doe", description = "Student's last name")
@@ -28,6 +27,7 @@ public record CreateStudentDTO(
         Date birthdate,
         @NotEmpty(message = "At least one role is required")
         @Schema(example = "STUDENT", description = "Student's role")
-        String rol
+        String rol,
+        Integer file
 ) {
 }
