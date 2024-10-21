@@ -1,90 +1,92 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-import { User } from '../../../models/user/user.model';
+import { Role, User } from '../../../interfaces/user.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-save-user',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './save-user.component.html',
-  styleUrl: './save-user.component.css'
+  styleUrls: ['./save-user.component.css']
 })
 export class SaveUserComponent implements OnInit {
-  private userService = inject(UserService);
+  roles = Object.values(Role);
+  title: string = 'Registrar nuevo usuario';
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
   registerForm!: FormGroup;
-  message: string = '';
-  private fb = inject(FormBuilder)
   showSuccessMessage: boolean = false;
-
-  
+  showErrorMessage: boolean = false; 
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      birthday: ['', Validators.required],
-      dni: ['', [Validators.required, Validators.minLength(10)]],
-      role: ['', Validators.required],
-      legajo: ['', [Validators.required, Validators.minLength(10)]]
+      email: new FormControl('', [Validators.required, Validators.email]),
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      birthDay: new FormControl('', Validators.required),
+      dni: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
+      role: new FormControl('', Validators.required),
+      legajo: new FormControl('', Validators.required) 
+    });
+
+    this.registerForm.get('role')?.valueChanges.subscribe(role => {
+      if (role === 'Profesor') {
+        this.registerForm.get('legajo')?.setValidators([Validators.required]);
+      } else {
+        this.registerForm.get('legajo')?.clearValidators();
+      }
+      this.registerForm.get('legajo')?.updateValueAndValidity();
     });
   }
 
   onSubmit(): void {
-    console.log("pasan cosas")
-    if (true) {
-      console.log("Valido")
+    if (this.registerForm.valid) {
       const user: User = {
-        DNI: this.registerForm.value.dni,
-        email: this.registerForm.value.email,
-       Role: this.registerForm.value.role,
-        legojo: this.registerForm.value.legajo,
-        lastName: this.registerForm.value.lastName,
-        firstName: this.registerForm.value.firstName,
-        date: this.registerForm.value.birthday,
+        dni: { dni: Number(this.registerForm.get('dni')?.value) },
+        email: this.registerForm.get('email')?.value,
+        role: this.registerForm.get('role')?.value,
+        legajo: this.registerForm.get('legajo')?.value,
+        lastName: this.registerForm.get('lastName')?.value,
+        firstName: this.registerForm.get('firstName')?.value,
+        birthDay: this.registerForm.get('birthDay')?.value,
       };
+
+      const users = this.getUsersFromLocalStorage();
+      const userExists = users.some(existingUser => 
+        existingUser.email === user.email || existingUser.dni.dni === user.dni.dni
+      );
+
+      if (userExists) {
+        this.showErrorMessage = true; 
+        return; 
+      }
+
+      this.storeUserInLocalStorage(user);
       this.showSuccessMessage = true;
       setTimeout(() => {
-        this.showSuccessMessage = false;
-      }, 3000);
-      
-      // Save to localStorage
-      this.saveToLocalStorage(user);
-      
-      // Save to service
-      this.userService.saveUser(user).subscribe(
-        response => {
-          console.log('User registered successfully', response);
-          this.message = 'Usuario registrado con éxito';
-          this.resetForm();
-        },
-        error => {
-          console.error('Error registering user', error);
-          this.message = 'Error al registrar usuario';
-        }
-      );
+        this.router.navigate(['/login']);
+      }, 2000);
+      this.resetForm();
     } else {
-      this.message = 'Por favor, complete todos los campos correctamente';
+      console.error('El formulario no es valido', this.registerForm.errors);
     }
   }
 
-  saveToLocalStorage(user: User): void {
-    console.log("Funciona");
-    let users: User[] = [];
-    const storedUsers = localStorage.getItem('users');
-    if (storedUsers) {
-      users = JSON.parse(storedUsers);
-    }
+  storeUserInLocalStorage(user: User): void {
+    const users = this.getUsersFromLocalStorage();
     users.push(user);
     localStorage.setItem('users', JSON.stringify(users));
   }
 
+  getUsersFromLocalStorage(): User[] {
+    const users = localStorage.getItem('users');
+    return users ? JSON.parse(users) : [];
+  }
+
   resetForm(): void {
     this.registerForm.reset();
-    this.message = '';
+    this.showErrorMessage = false;
   }
 }
