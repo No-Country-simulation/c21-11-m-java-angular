@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@DiscriminatorValue("Teacher")
 public class Teacher extends UserEntity {
     @OneToOne(cascade = CascadeType.ALL)
     private File file;
