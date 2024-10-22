@@ -21,6 +21,7 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 //para mostrar en una sola tabla userEntity
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 public abstract class UserEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

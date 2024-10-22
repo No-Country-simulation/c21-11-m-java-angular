@@ -12,7 +12,7 @@ public class StudentRegisterRequest {
     private String password;
     private String email;
     private Locality locality;
-    private Dni dni;
+    private Long dni;
     private Adress address;
     private Date birthdate;
     private Phone phone;

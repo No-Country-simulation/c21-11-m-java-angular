@@ -10,10 +10,7 @@ import com.no_country.demo.dto.auth.LoginRequest;
 import com.no_country.demo.dto.auth.StudentRegisterRequest;
 import com.no_country.demo.dto.auth.TeacherRegisterRequest;
 import com.no_country.demo.dto.auth.response.AuthResponse;
-import com.no_country.demo.entities.Email;
-import com.no_country.demo.entities.Student;
-import com.no_country.demo.entities.Teacher;
-import com.no_country.demo.entities.UserEntity;
+import com.no_country.demo.entities.*;
 import com.no_country.demo.entities.enums.Rol;
 import com.no_country.demo.repository.EmailRepositorylog;
 import com.no_country.demo.repository.StudentRepository;
@@ -65,7 +62,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 userEntity.isEnable(),
                 userEntity.isAccountNoExpired(),
                 !userEntity.isCredentialNoExpired(),
-                !userEntity.isAccounLocked(),
+                !userEntity.isAccountLocked(),
                 authorities
         );
     }
@@ -105,8 +102,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(email) //Hace falta que sea bidireccional?
                 .locality(request.getLocality())
-                .dni(request.getDni())
-                .address(request.getAddress())
+                .dni(Dni.builder()
+                        .dni(String.valueOf(request.getDni()))
+                        .build())
+
+//                .address(request.getAddress())
                 .birthdate(request.getBirthdate())
 //                .phone(request.getPhone())
 //                .dateRegistrationCourse(request.getDateRegistrationCourse())
@@ -152,7 +152,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //                .file(request.getFile())
                 .rol(Rol.TEACHER)  // Asignar el rol de profesor
                 .isEnable(true)
-                .accounLocked(false)
+                .accountLocked(false)
                 .accountNoExpired(true)
                 .credentialNoExpired(true)
                 .build();

@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@DiscriminatorValue("Student")
 public class Student extends UserEntity {
     private Date dateRegistrationCourse;
 
