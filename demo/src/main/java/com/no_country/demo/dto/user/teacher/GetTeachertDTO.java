@@ -1,14 +1,18 @@
-package com.no_country.demo.dto.student;
+package com.no_country.demo.dto.user.teacher;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.CascadeType;
 import jakarta.validation.constraints.Email;
+import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 
-public record UpdateStudentDTO(
+@Builder
+public record GetTeachertDTO(
+        @Schema(example = "1", description = "Student's unique identifier")
+        Long id,
         @Schema(example = "John ", description = "Student's updated username")
         String name,
         @Schema(example = "Doe ", description = "Student's updated last name")
@@ -35,11 +39,8 @@ public record UpdateStudentDTO(
         @Schema(example = "ACTIVE", description = "Student's updated state")
         String userState,
         //String dateRegistrationCourse, hay un manera para que se genere automaticamente cuando se registre al curso
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        @Schema(example = "2022-01-01", description = "Student's updated current course")
-        String currentCourse,
-        @Schema(example = "New Tutor", description = "Student's updated tutor")
-        String tutor
+        Integer file,
+        ArrayList<String> subjects
 ) {
 
 }

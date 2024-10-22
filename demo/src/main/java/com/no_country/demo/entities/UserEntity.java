@@ -4,10 +4,7 @@ import com.no_country.demo.entities.enums.Rol;
 import com.no_country.demo.entities.enums.UserState;
 import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
@@ -35,8 +32,7 @@ public abstract class UserEntity {
     private Dni dni;
     @ManyToOne(cascade = CascadeType.ALL)
     private Adress address;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Email email;
+    private String email;
     private Date birthdate;
     @OneToOne(cascade = CascadeType.ALL)
     private Phone phone;
@@ -44,5 +40,4 @@ public abstract class UserEntity {
     private Rol rol;
     @Enumerated(EnumType.STRING)
     private UserState userState;
-
 }
