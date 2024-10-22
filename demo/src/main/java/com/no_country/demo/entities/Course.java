@@ -21,10 +21,11 @@ public class Course {
     @ManyToMany()
     @JoinTable(
             name = "course_subject",
-            joinColumns = @JoinColumn(name = "team_id"),
-            inverseJoinColumns = @JoinColumn(name = "mentor_id")
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
-    private List<Subject> subjects;
+    private List<Subject> subjects;  //materias asociadas al curso
     @OneToMany(mappedBy = "currentCourse", cascade = CascadeType.ALL)
-    private List<Student> students;
+    private List<Student> students;  //alumnos asociados al curso
+
 }
