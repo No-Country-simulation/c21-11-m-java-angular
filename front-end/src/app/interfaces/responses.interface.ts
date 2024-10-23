@@ -16,10 +16,16 @@ export interface UsersResponse {  // traer usuarios en plural
     data: User[]
 }
 
-export interface SubjectResponse {  // cualquier tipo de usuario individual (get)
+export interface SubjectResponse { 
     success: boolean,
     message: string,
     data: Subject
+}
+
+export interface SubjectsResponse {
+    success: boolean,
+    message: string,
+    data: Subject[]
 }
 
 export interface EnrollResponse {   // respuesta a inscribir alumno
@@ -40,6 +46,12 @@ export interface EvaluationResponse {
     data: Evaluation
 }
 
+export interface EvaluationsResponse {
+    success: boolean,
+    message: string,
+    data: Evaluation[]
+}
+
 export interface ObservationResponse {
     success: boolean,
     message: string,
@@ -50,4 +62,10 @@ export interface QualificationResponse {
     success: boolean,
     message: string,
     data: Qualification
+}
+
+export interface QualificationsResponse {
+    success: boolean,
+    message: string,
+    data: Qualification[]
 }

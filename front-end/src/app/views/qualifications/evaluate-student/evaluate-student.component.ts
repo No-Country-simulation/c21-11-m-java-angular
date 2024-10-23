@@ -38,6 +38,7 @@ export class EvaluateStudentComponent {
         student: this.registerForm.value.student,
         comment: this.registerForm.value.comment,
         grade: this.registerForm.value.grade,
+        evaluation: this.evaluationId
       };
 
       console.log('Onsubmit ID del alumno', qualification.student);

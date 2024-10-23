@@ -121,13 +121,20 @@ export const routes: Routes = [
       ).then((m) => m.SaveObservationComponent),
   },
   {
-    // debe crear una evaluacion en la asignatura en la que esta gestionando (/:subjectId)
-    path: 'evaluateStudent',
+    path: 'evaluate-student',
     title: 'Evaluate student interface',
     loadComponent: () =>
       import(
         './views/qualifications/evaluate-student/evaluate-student.component'
       ).then((m) => m.EvaluateStudentComponent),
+  },
+  {
+    path: 'student-history',
+    title: "Student's history",
+    loadComponent: () =>
+      import(
+        './views/qualifications/student-history/student-history.component'
+      ).then((m) => m.StudentHistoryComponent),
   },
   {
     path: '',

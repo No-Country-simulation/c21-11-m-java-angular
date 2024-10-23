@@ -1,9 +1,11 @@
+import { Evaluation } from './evaluation.interface';
 import { User } from './user.interface';
 
 export interface Qualification {
   student: User;
   grade: Grades; // notas
   comment: string;
+  evaluation: string // cada calificacion es de una evaluacion concreta
 }
 
 export enum Grades { // notas de alumnos

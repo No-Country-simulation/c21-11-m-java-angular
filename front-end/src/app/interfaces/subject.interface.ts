@@ -1,3 +1,4 @@
+import { Evaluation } from "./evaluation.interface";
 import { User } from "./user.interface";
 
 export interface Subject {
@@ -8,6 +9,7 @@ export interface Subject {
   schedule: [string];
   days: WeekDays[];
   teacher: User;
+  evaluations?: Evaluation[]
 }
 
 export enum WeekDays {

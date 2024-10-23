@@ -3,10 +3,11 @@ import { Subject } from "./subject.interface";
 import { User } from "./user.interface";
 
 export interface Evaluation {
+    id?: string,
     subject: Subject["id"],
     evaluationDate: Date,
     topics: string,
-    califications?: Qualification[],
+    qualifications?: Qualification[],
     comments?: string
 }
 
