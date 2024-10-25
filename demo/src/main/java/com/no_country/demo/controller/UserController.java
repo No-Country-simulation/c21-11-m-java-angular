@@ -54,12 +54,6 @@ public class UserController {
         UserEntity user= userServices.createUser(createUserDTO);
         return ResponseEntity.ok(userServices.userToDto(user));
     }
-//    es de prueba
-//    @GetMapping("/getByEmail")
-//    public ResponseEntity getUserByEmail(String email) {
-//        userServices.getUserByEmail(email);
-//            return ResponseEntity.ok("ok");
-//    }
     @Operation(
             summary = "Optener Usuario",
             description = "Este endpoint permite optener un usuario pasandole el ID del usuario por la ruta"
