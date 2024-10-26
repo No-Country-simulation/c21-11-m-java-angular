@@ -1,6 +1,6 @@
 package com.no_country.demo.entities.enums;
 
-public enum Qualification {
+public enum QualificationNote {
     ONE(1),
     TWO(2),
     THREE(3),
@@ -14,7 +14,7 @@ public enum Qualification {
 
     private  int value;
 
-    Qualification(int value) {
+    QualificationNote(int value) {
         this.value = value;
     }
 
