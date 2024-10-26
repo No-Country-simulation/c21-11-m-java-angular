@@ -1,5 +1,6 @@
 package com.no_country.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.no_country.demo.entities.enums.QualificationNote;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,6 +18,7 @@ public class Qualification {
 
     @ManyToOne
     @JoinColumn(name = "id_student", nullable = false)
+    @JsonBackReference  //para evitar recursion
     private Student student; // Relación con el estudiante
 
     @ManyToOne
