@@ -47,7 +47,17 @@ public class CourseController {
     )
     @PostMapping("/{courseId}/students/{studentId}")
     public ResponseEntity<Void> enrollStudent(@PathVariable Long courseId, @PathVariable Long studentId) {
-        courseService.enrollStudentInCourse(courseId, studentId);
+        courseService.enrollStudentInCourse(studentId, courseId);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(
+            summary = "Asignar/Agregar Asignaturas a Curso",
+            description = "Este endpoint permite agregar/asignar materias a curso"
+    )
+    @PostMapping("/{courseId}/subjects/{subjectId}")
+    public ResponseEntity<Void> addSubject(@PathVariable Long courseId, @PathVariable Long subjectId) {
+        courseService.addSubjectToCourse(subjectId, courseId);
         return ResponseEntity.ok().build();
     }
 }

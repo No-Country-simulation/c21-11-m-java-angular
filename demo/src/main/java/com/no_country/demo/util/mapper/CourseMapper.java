@@ -20,14 +20,18 @@ public class CourseMapper {
     }
 
     public CourseDTO toDto(Course course) {
-        List<Long> subjectIds = course.getSubjects().stream()
-                .map(subject -> subject.getId())
-                .collect(Collectors.toList());
-        List<Long> studentIds = course.getStudents().stream()
-                .map(student -> student.getId())
+        List<String> subjectNames = course.getSubjects().stream()
+                .map(subject -> subject.getSubject()) // Obtener el nombre de la asignatura
                 .collect(Collectors.toList());
 
-        return new CourseDTO(course.getId(), course.getCourse(),
-                course.getDetail(), subjectIds, studentIds);
+        List<String> studentFullNames = course.getStudents().stream()
+                .map(student -> student.getName() + " " + student.getLastname()) // nombre y apellido
+                .collect(Collectors.toList());
+
+        return new CourseDTO(course.getId(),
+                course.getCourse(),
+                course.getDetail(),
+                subjectNames, // Nombres de asignaturas
+                studentFullNames); // Nombres completos de estudiantes
     }
 }
