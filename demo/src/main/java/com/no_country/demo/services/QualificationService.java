@@ -22,9 +22,15 @@ public class QualificationService {
     public Qualification createQualification(QualificationDTO qualificationDTO) {
         return qualificationRepository.save(qualificationMapper.toEntity(qualificationDTO));
     }
-
+//Calificaciones por Evaluacion
     public List<QualificationDTO> getQualificationsByEvaluation(Long evaluationId) {
         return qualificationRepository.findByEvaluation_Id(evaluationId).stream()
+                .map(qualificationMapper::toDto)
+                .collect(Collectors.toList());
+    }
+    //Calificaciones por alumno
+    public List<QualificationDTO> getQualificationsByStudent(Long studentId) {
+        return qualificationRepository.findByStudent_Id(studentId).stream()
                 .map(qualificationMapper::toDto)
                 .collect(Collectors.toList());
     }

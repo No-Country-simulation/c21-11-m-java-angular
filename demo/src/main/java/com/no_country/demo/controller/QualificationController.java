@@ -35,6 +35,15 @@ public class QualificationController {
         return ResponseEntity.ok(qualifications);
     }
     @Operation(
+            summary = "Obtener Calificaciones por Alumno",
+            description = "Este endpoint permite obtener/listar calificaciones por Alumno"
+    )
+    @GetMapping("/students/{studentId}/qualifications")
+    public ResponseEntity<List<QualificationDTO>> getQualifications(@PathVariable Long studentId) {
+        List<QualificationDTO> qualifications = qualificationService.getQualificationsByStudent(studentId);
+        return ResponseEntity.ok(qualifications);
+    }
+    @Operation(
             summary = "Elimina una calificacion",
             description = "Este endpoint elimina una calificacion"
     )

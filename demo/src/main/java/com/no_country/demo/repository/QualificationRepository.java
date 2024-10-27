@@ -8,6 +8,8 @@ import java.util.List;
 
 @Repository
 public interface QualificationRepository extends JpaRepository<Qualification, Long> {
-    List<Qualification> findByEvaluation_Id(Long evaluationId);
     // Método para encontrar calificaciones por ID de evaluación
+    List<Qualification> findByEvaluation_Id(Long evaluationId);
+    // Método para encontrar calificaciones por ID de Alumno
+    List<Qualification> findByStudent_Id(Long studentId);
 }
