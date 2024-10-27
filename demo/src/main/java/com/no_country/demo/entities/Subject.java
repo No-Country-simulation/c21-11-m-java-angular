@@ -1,5 +1,6 @@
 package com.no_country.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.no_country.demo.dto.DataSubject;
 import com.no_country.demo.entities.enums.DayWeek;
@@ -24,6 +25,7 @@ public class Subject {
     private String subject;
     @ManyToOne
     @JoinColumn(name = "id_teacher")
+    @JsonBackReference  //para evitar recursion
     private Teacher teacher;
     private String topics;
     private String description;
