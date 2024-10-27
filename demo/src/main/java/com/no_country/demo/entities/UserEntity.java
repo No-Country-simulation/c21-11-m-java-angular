@@ -16,6 +16,7 @@ import java.util.Date;
 @SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+//@DiscriminatorColumn(name = "dtype")
 //para mostrar en una sola tabla userEntity
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class UserEntity {
