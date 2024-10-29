@@ -13,6 +13,6 @@ public class configSecurity implements WebMvcConfigurer {
                 .allowedOrigins("*") // Origen permitido
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos permitidos
                 .allowedHeaders("*") // Permitir todos los headers
-                .allowCredentials(true); // Permitir cookies si es necesario
+                .allowCredentials(false); // Permitir cookies si es necesario
     }
 }
