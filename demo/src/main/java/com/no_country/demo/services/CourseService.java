@@ -3,6 +3,8 @@ package com.no_country.demo.services;
 import com.no_country.demo.dto.course.*;
 import com.no_country.demo.entities.Course;
 import com.no_country.demo.entities.Student;
+import com.no_country.demo.entities.Subject;
+import com.no_country.demo.repository.SubjectRepository;
 import com.no_country.demo.util.mapper.CourseMapper;
 import com.no_country.demo.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private SubjectRepository subjectRepository;
     @Autowired
     private CourseMapper courseMapper;
     @Autowired
@@ -40,17 +44,36 @@ public class CourseService {
 
     //inscripcion alumno
     public void enrollStudentInCourse(Long studentId, Long courseId) {
+        // Buscar el curso por su ID
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado con id: " + courseId));
 
-        // buscar el estudiante por su ID
+        // Buscar el estudiante por su ID
         Student student = studentService.getStudentById(studentId);
 
-        // Agrega el estudiante al curso
+        // Verificar si el estudiante fue encontrado
+        if (student == null) {
+            throw new RuntimeException("Estudiante no encontrado con id: " + studentId);
+        }
+
+        // Agregar el estudiante al curso
         course.getStudents().add(student);
         student.setCurrentCourse(course); // Establecer el curso actual del estudiante
 
         // Guardar los cambios en la base de datos
+        courseRepository.save(course);
+    }
+
+    public void addSubjectToCourse(Long courseId, Long subjectId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Curso no encontrado con id: " + courseId));
+
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new RuntimeException("Asignatura no encontrada con id: " + subjectId));
+
+        // Agregar la asignatura al curso
+        course.getSubjects().add(subject);
+        // Guardar
         courseRepository.save(course);
     }
 }

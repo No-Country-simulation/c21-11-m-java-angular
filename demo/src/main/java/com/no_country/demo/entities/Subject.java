@@ -1,5 +1,7 @@
 package com.no_country.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.no_country.demo.dto.DataSubject;
 import com.no_country.demo.entities.enums.DayWeek;
 import jakarta.persistence.*;
@@ -23,6 +25,7 @@ public class Subject {
     private String subject;
     @ManyToOne
     @JoinColumn(name = "id_teacher")
+    @JsonBackReference  //para evitar recursion
     private Teacher teacher;
     private String topics;
     private String description;
@@ -30,6 +33,7 @@ public class Subject {
     private Date schedule;
     @Enumerated(EnumType.STRING)
     private List<DayWeek> days;
+    @JsonManagedReference  //para evitar recursion
     @OneToMany(mappedBy = "subject")
     private List<Evaluation> evaluations;
     @ManyToMany(mappedBy = "subjects")
@@ -42,5 +46,9 @@ public class Subject {
         schedule = dataSubject.schedule();
         days = dataSubject.days();
         evaluations = dataSubject.evaluation();
+    }
+    // Constructor que acepta solo el ID
+    public Subject(Long id) {
+        this.id = id;
     }
 }
