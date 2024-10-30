@@ -28,4 +28,14 @@ public class Course {
     @OneToMany(mappedBy = "currentCourse", cascade = CascadeType.ALL)
     private List<Student> students;  //alumnos asociados al curso
 
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", course='" + course + '\'' +
+                ", detail='" + detail + '\'' +
+                ", subjects=" + subjects +
+                ", students=" + students +
+                '}';
+    }
 }

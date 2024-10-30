@@ -30,4 +30,13 @@ public class SubjectService {
         // Guardar los cambios en la base de datos
         subjectRepository.save(subject);
     }
+
+    public Subject buscarPorId(Long id) {
+        return subjectRepository.findById(id)
+               .orElseThrow(() -> new RuntimeException("Asignatura no encontrada con id: " + id));
+    }
+    public Subject crear(Subject subject) {
+        subjectRepository.save(subject);
+        return subject;
+    }
 }

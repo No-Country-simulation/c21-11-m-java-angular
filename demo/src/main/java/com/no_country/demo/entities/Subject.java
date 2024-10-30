@@ -3,6 +3,7 @@ package com.no_country.demo.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.no_country.demo.dto.DataSubject;
+import com.no_country.demo.dto.subject.CreateSubjectDTO;
 import com.no_country.demo.entities.enums.DayWeek;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,6 @@ public class Subject {
     private Teacher teacher;
     private String topics;
     private String description;
-//    private List<Evaluacion> evaluations;
     private Date schedule;
     @Enumerated(EnumType.STRING)
     private List<DayWeek> days;
@@ -39,13 +39,12 @@ public class Subject {
     @ManyToMany(mappedBy = "subjects")
     private List<Course> courses;
 
-    public Subject(DataSubject dataSubject){
-        subject = dataSubject.name();
-        topics = dataSubject.topics();
-        description = dataSubject.description();
-        schedule = dataSubject.schedule();
-        days = dataSubject.days();
-        evaluations = dataSubject.evaluation();
+    public Subject(CreateSubjectDTO createSubjectDTO){
+        subject = createSubjectDTO.name();
+        topics = createSubjectDTO.topics();
+        description = createSubjectDTO.description();
+        schedule = createSubjectDTO.schedule();
+        days = createSubjectDTO.days();
     }
     // Constructor que acepta solo el ID
     public Subject(Long id) {

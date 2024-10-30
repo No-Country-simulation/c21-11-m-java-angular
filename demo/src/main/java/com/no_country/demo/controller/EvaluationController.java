@@ -1,5 +1,6 @@
 package com.no_country.demo.controller;
 
+import com.no_country.demo.dto.ResponseDTO;
 import com.no_country.demo.dto.evaluation.EvaluationDTO;
 import com.no_country.demo.entities.Evaluation;
 import com.no_country.demo.services.EvaluationService;
@@ -42,5 +43,15 @@ public class EvaluationController {
     public ResponseEntity<List<EvaluationDTO>> getEvaluationsBySubject(@PathVariable Long subjectId) {
         List<EvaluationDTO> evaluations = evaluationService.getEvaluationsBySubject(subjectId);
         return ResponseEntity.ok(evaluations);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDTO> getEvaluationById(@PathVariable Long id) {
+        EvaluationDTO evaluation = evaluationService.getEvaluationById(id);
+        return ResponseEntity.ok(new ResponseDTO(
+                true,
+                "La evaluacion se obtubo con exito",
+                evaluation
+        ));
     }
 }

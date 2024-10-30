@@ -39,6 +39,10 @@ public class EvaluationService {
                 .collect(Collectors.toList());
     }
 
+    public EvaluationDTO getEvaluationById(Long id) {
+        return evaluationMapper.toDto(evaluationRepository.findById(id).
+                orElseThrow(() -> new RuntimeException("Evaluation not found")) );
+    }
 }
 
 
