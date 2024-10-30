@@ -1,6 +1,7 @@
 package com.no_country.demo.util.mapper;
 import com.no_country.demo.dto.evaluation.EvaluationDTO;
 import com.no_country.demo.dto.evaluation.GetEvaluationDTO;
+import com.no_country.demo.dto.evaluation.ListEvaluationDTO;
 import com.no_country.demo.dto.evaluation.UpdateEvaluationDTO;
 import com.no_country.demo.entities.Evaluation;
 import com.no_country.demo.entities.Subject;
@@ -23,6 +24,7 @@ public class EvaluationMapper {
         evaluation.setDateEvaluation(evaluationDTO.dateEvaluation());
         evaluation.setTopicsEvaluation(evaluationDTO.topicsEvaluation());
         evaluation.setComentario(evaluationDTO.comentario());
+        evaluation.setActive(evaluationDTO.isActive());
 
         // Establecer el subject utilizando el ID del DTO
         if (evaluationDTO.subjectId() != null) {
@@ -42,7 +44,8 @@ public class EvaluationMapper {
                         evaluation.getSubject().getId() : null,
                 evaluation.getDateEvaluation(),
                 evaluation.getTopicsEvaluation(),
-                evaluation.getComentario()
+                evaluation.getComentario(),
+                evaluation.isActive()
         );
     }
     public GetEvaluationDTO toGetDto(Evaluation evaluation) {
@@ -52,6 +55,7 @@ public class EvaluationMapper {
                 .topicsEvaluation(evaluation.getTopicsEvaluation())
                 .comentario(evaluation.getComentario())
                 .subject(subjectMapper.toListDTO(evaluation.getSubject()))
+                .isActive(evaluation.isActive())
                 .build();
     }
 
@@ -66,5 +70,15 @@ public class EvaluationMapper {
                     .orElseThrow(() -> new RuntimeException("Subject not found"));
             evaluation.setSubject(subject);
         }
+    }
+
+    public ListEvaluationDTO toListDto(Evaluation evaluation) {
+        return ListEvaluationDTO.builder()
+               .id(evaluation.getId())
+               .dateEvaluation(evaluation.getDateEvaluation())
+               .topicsEvaluation(evaluation.getTopicsEvaluation())
+               .comentario(evaluation.getComentario())
+               .subjectId(evaluation.getSubject().getId())
+               .build();
     }
 }

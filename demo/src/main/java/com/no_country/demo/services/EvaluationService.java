@@ -1,9 +1,9 @@
 package com.no_country.demo.services;
 import com.no_country.demo.dto.evaluation.EvaluationDTO;
 import com.no_country.demo.dto.evaluation.GetEvaluationDTO;
+import com.no_country.demo.dto.evaluation.ListEvaluationDTO;
 import com.no_country.demo.dto.evaluation.UpdateEvaluationDTO;
 import com.no_country.demo.entities.Evaluation;
-import com.no_country.demo.entities.Subject;
 import com.no_country.demo.repository.EvaluationRepository;
 import com.no_country.demo.repository.SubjectRepository;
 import com.no_country.demo.util.mapper.EvaluationMapper;
@@ -34,6 +34,11 @@ public class EvaluationService {
                 .map(evaluationMapper::toDto)
                 .collect(Collectors.toList());
     }
+    public List<ListEvaluationDTO> getAllActiveEvaluations(){
+        return evaluationRepository.findAllByIsActive(true).stream()
+                .map(evaluationMapper::toListDto)
+                .collect(Collectors.toList());
+    }
     // Lista evaluaciones por asignatura
     public List<EvaluationDTO> getEvaluationsBySubject(Long subjectId) {
         return evaluationRepository.findBySubject_Id(subjectId).stream()
@@ -51,6 +56,13 @@ public class EvaluationService {
                .orElseThrow(() -> new RuntimeException("Evaluation not found"));
 
         evaluationMapper.toUpdate(evaluation, updateEvaluationDTO);
+        return evaluationMapper.toGetDto(evaluation);
+    }
+
+    public GetEvaluationDTO deleteEvaluation(Long id) {
+        Evaluation evaluation=evaluationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Evaluation not found"));
+        evaluation.setActive(false);
         return evaluationMapper.toGetDto(evaluation);
     }
 }

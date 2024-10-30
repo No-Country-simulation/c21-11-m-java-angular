@@ -3,6 +3,7 @@ package com.no_country.demo.controller;
 import com.no_country.demo.dto.ResponseDTO;
 import com.no_country.demo.dto.evaluation.EvaluationDTO;
 import com.no_country.demo.dto.evaluation.GetEvaluationDTO;
+import com.no_country.demo.dto.evaluation.ListEvaluationDTO;
 import com.no_country.demo.dto.evaluation.UpdateEvaluationDTO;
 import com.no_country.demo.entities.Evaluation;
 import com.no_country.demo.services.EvaluationService;
@@ -66,5 +67,25 @@ public class EvaluationController {
                     "La evaluacion se actualizo con exito",
                     evaluationDTO
             ));
+    }
+    @Transactional
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseDTO> deleteEvaluation(@PathVariable Long id) {
+        GetEvaluationDTO evaluationDTO=evaluationService.deleteEvaluation(id);
+        return ResponseEntity.ok(new ResponseDTO(
+                true,
+                "La evaluacion se elimino con exito",
+                evaluationDTO
+        ));
+    }
+
+    @GetMapping("allEvaluationActives")
+    public ResponseEntity<ResponseDTO> getAllActiveEvaluations() {
+        List<ListEvaluationDTO> evaluationsActives = evaluationService.getAllActiveEvaluations();
+        return ResponseEntity.ok(new ResponseDTO(
+                true,
+                "La evaluacion se actualizo con exito",
+                evaluationsActives
+        ));
     }
 }
