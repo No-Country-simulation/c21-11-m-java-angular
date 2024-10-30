@@ -93,6 +93,7 @@ public class CourseController {
     @PostMapping("/{courseId}/subjects/{subjectId}")
     public ResponseEntity<ResponseDTO> addSubject(@PathVariable Long courseId, @PathVariable Long subjectId) {
         courseService.addSubjectToCourse(courseId, subjectId);
+
         return ResponseEntity.ok(new ResponseDTO(
                 true
                 , "Materia asignada Correctamente"

@@ -43,7 +43,7 @@ public class EvaluationController {
             summary = "Obtener/Listar las Evaluaciones de una Asignatura Especifica",
             description = "Este endpoint permite ver las Evaluaciones de una Asignatura Especifica"
     )
-    @GetMapping("/subject/{subjectDTO}")
+    @GetMapping("/subject/{subjectId}")
     public ResponseEntity<List<EvaluationDTO>> getEvaluationsBySubject(@PathVariable Long subjectId) {
         List<EvaluationDTO> evaluations = evaluationService.getEvaluationsBySubject(subjectId);
         return ResponseEntity.ok(evaluations);
