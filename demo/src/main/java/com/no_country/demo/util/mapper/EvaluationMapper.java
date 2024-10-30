@@ -1,17 +1,22 @@
 package com.no_country.demo.util.mapper;
 import com.no_country.demo.dto.evaluation.EvaluationDTO;
+import com.no_country.demo.dto.evaluation.GetEvaluationDTO;
+import com.no_country.demo.dto.evaluation.UpdateEvaluationDTO;
 import com.no_country.demo.entities.Evaluation;
 import com.no_country.demo.entities.Subject;
 import com.no_country.demo.repository.SubjectRepository;
+import jakarta.persistence.GeneratedValue;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class EvaluationMapper {
 
-    @Autowired
-    private SubjectRepository subjectRepository; // Inyecta tu repositorio de Subject
 
+    private SubjectRepository subjectRepository; // Inyecta tu repositorio de Subject
+    private SubjectMapper subjectMapper;
     public Evaluation toEntity(EvaluationDTO evaluationDTO) {
         Evaluation evaluation = new Evaluation();
         evaluation.setId(evaluationDTO.id());
@@ -35,12 +40,31 @@ public class EvaluationMapper {
                 // Obtener el ID de la asignatura
                 evaluation.getSubject() != null ?
                         evaluation.getSubject().getId() : null,
-                // Obtener el nombre de la asignatura
-                evaluation.getSubject() != null ?
-                        evaluation.getSubject().getSubject() : null,
                 evaluation.getDateEvaluation(),
                 evaluation.getTopicsEvaluation(),
                 evaluation.getComentario()
         );
+    }
+    public GetEvaluationDTO toGetDto(Evaluation evaluation) {
+        return GetEvaluationDTO.builder()
+                .id(evaluation.getId())
+                .dateEvaluation(evaluation.getDateEvaluation())
+                .topicsEvaluation(evaluation.getTopicsEvaluation())
+                .comentario(evaluation.getComentario())
+                .subject(subjectMapper.toListDTO(evaluation.getSubject()))
+                .build();
+    }
+
+    public void toUpdate(Evaluation evaluation, UpdateEvaluationDTO update) {
+        evaluation.setDateEvaluation(update.dateEvaluation()!=null ? update.dateEvaluation():evaluation.getDateEvaluation());
+        evaluation.setTopicsEvaluation(update.topicsEvaluation()!=null ? update.topicsEvaluation():evaluation.getTopicsEvaluation());
+        evaluation.setComentario(update.comentario()!=null ? update.comentario():evaluation.getComentario());
+
+        // Update the subject if the ID is provided
+        if (update.subjectID() != null) {
+            Subject subject = subjectRepository.findById(update.subjectID())
+                    .orElseThrow(() -> new RuntimeException("Subject not found"));
+            evaluation.setSubject(subject);
+        }
     }
 }

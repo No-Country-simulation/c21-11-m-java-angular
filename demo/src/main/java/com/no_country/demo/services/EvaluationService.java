@@ -1,5 +1,7 @@
 package com.no_country.demo.services;
 import com.no_country.demo.dto.evaluation.EvaluationDTO;
+import com.no_country.demo.dto.evaluation.GetEvaluationDTO;
+import com.no_country.demo.dto.evaluation.UpdateEvaluationDTO;
 import com.no_country.demo.entities.Evaluation;
 import com.no_country.demo.entities.Subject;
 import com.no_country.demo.repository.EvaluationRepository;
@@ -39,9 +41,17 @@ public class EvaluationService {
                 .collect(Collectors.toList());
     }
 
-    public EvaluationDTO getEvaluationById(Long id) {
-        return evaluationMapper.toDto(evaluationRepository.findById(id).
+    public GetEvaluationDTO getEvaluationById(Long id) {
+        return evaluationMapper.toGetDto(evaluationRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("Evaluation not found")) );
+    }
+
+    public GetEvaluationDTO updateEvaluation(UpdateEvaluationDTO updateEvaluationDTO) {
+        Evaluation evaluation = evaluationRepository.findById(updateEvaluationDTO.id())
+               .orElseThrow(() -> new RuntimeException("Evaluation not found"));
+
+        evaluationMapper.toUpdate(evaluation, updateEvaluationDTO);
+        return evaluationMapper.toGetDto(evaluation);
     }
 }
 

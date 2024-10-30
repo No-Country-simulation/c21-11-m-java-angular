@@ -1,5 +1,6 @@
 package com.no_country.demo.util.mapper;
 
+import com.no_country.demo.dto.user.ListUserDTO;
 import com.no_country.demo.dto.user.UpdateUserDTO;
 import com.no_country.demo.entities.Student;
 import com.no_country.demo.entities.Teacher;
@@ -22,11 +23,22 @@ public class UserMapper {
         userEntity.getPhone().setPhone(updateUserDTO.phone() != null ? updateUserDTO.phone() : userEntity.getPhone().getPhone());
         userEntity.setRol(Rol.fromString(updateUserDTO.rol() != null ? updateUserDTO.rol() : userEntity.getRol().toString()));
         userEntity.setUserState(updateUserDTO.userState() != null ? UserState.valueOf(updateUserDTO.userState().toUpperCase()) : userEntity.getUserState());
-        if (userEntity instanceof Teacher teacher){
+        if (userEntity instanceof Teacher teacher) {
             teacher.getFile().setFile(updateUserDTO.file() != null ? updateUserDTO.file() : teacher.getFile().getFile());
         } else if (userEntity instanceof Student student) {
-            student.getCurrentCourse().setCourse(updateUserDTO.currentCourse() != null ? updateUserDTO.currentCourse() : student.getCurrentCourse().getCourse());
-            student.getTutor().setName(updateUserDTO.tutor() != null ? updateUserDTO.tutor() : student.getTutor().getName());
+//            student.getCurrentCourse().setCourse(updateUserDTO.currentCourse() != null ? updateUserDTO.currentCourse() : student.getCurrentCourse().getCourse());
+//            student.getTutor().setName(updateUserDTO.tutor() != null ? updateUserDTO.tutor() : student.getTutor().getName());
         }
+    }
+
+    public ListUserDTO toListUserDTO(UserEntity userEntity) {
+        return ListUserDTO.builder()
+                .id(userEntity.getId())
+                .email(userEntity.getEmail())
+                .name(userEntity.getName())
+                .lastname(userEntity.getLastname())
+                .rol(userEntity.getRol())
+                .userState(userEntity.getUserState())
+                .build();
     }
 }

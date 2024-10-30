@@ -26,8 +26,8 @@ public class StudentMapper {
                 .phone(Phone.builder().build())
                 .rol(Rol.fromString(createUserDTO.rol()))
                 .userState(UserState.ACTIVE)
-                .currentCourse(Course.builder().build())
-                .tutor(Tutor.builder().build())
+//                .currentCourse(Course.builder().build())
+//                .tutor(Tutor.builder().build())
                 .build();
     }
 
@@ -45,8 +45,8 @@ public class StudentMapper {
                 .phone(student.getPhone().getPhone())
                 .rol(student.getRol().toString())
                 .userState(student.getUserState().toString())
-                .currentCourse(student.getCurrentCourse().getCourse())
-                .tutor(student.getTutor().getName())
+//                .currentCourse(student.getCurrentCourse().getCourse())
+//                .tutor(student.getTutor().getName())
                 .build();
     }
 

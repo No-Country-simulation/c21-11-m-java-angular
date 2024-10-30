@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserServices {
@@ -53,5 +55,10 @@ public class UserServices {
     public void updateUserById(Long id, UpdateUserDTO updateUserDTO) {
         UserEntity user = getUserById(id);
         userMapper.dtoToUser(updateUserDTO,user);
+    }
+
+
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
     }
 }

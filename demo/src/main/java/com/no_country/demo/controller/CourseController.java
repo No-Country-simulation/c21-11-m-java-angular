@@ -90,7 +90,7 @@ public class CourseController {
             description = "Este endpoint permite agregar/asignar materias a curso"
     )
     @Transactional
-    @PostMapping("/{courseId}/subjects/{subjectId}")
+    @PostMapping("/{courseId}/subjects/{subjectDTO}")
     public ResponseEntity<ResponseDTO> addSubject(@PathVariable Long courseId, @PathVariable Long subjectId) {
         courseService.addSubjectToCourse(courseId, subjectId);
         return ResponseEntity.ok(new ResponseDTO(

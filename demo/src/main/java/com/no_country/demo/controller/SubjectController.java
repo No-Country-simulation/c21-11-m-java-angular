@@ -39,7 +39,7 @@ public class SubjectController {
             summary = "Asigna Profesor a Asignatura",
             description = "Este endpoint asigna Profesor a Asignatura"
     )
-    @PostMapping("/{subjectId}/teachers/{teacherId}")
+    @PostMapping("/{subjectDTO}/teachers/{teacherId}")
     public ResponseEntity<Void> assignTeacher(@PathVariable Long subjectId, @PathVariable Long teacherId) {
         subjectService.assignTeacherToSubject(subjectId, teacherId);
         return ResponseEntity.ok().build();

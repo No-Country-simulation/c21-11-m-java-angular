@@ -1,5 +1,6 @@
 package com.no_country.demo.controller;
 
+import com.no_country.demo.dto.ResponseDTO;
 import com.no_country.demo.dto.user.CreateUserDTO;
 import com.no_country.demo.dto.user.UpdateUserDTO;
 import com.no_country.demo.dto.user.student.GetStudentDTO;
@@ -9,6 +10,7 @@ import com.no_country.demo.services.StudentService;
 import com.no_country.demo.services.UserServices;
 import com.no_country.demo.util.mapper.StudentMapper;
 import com.no_country.demo.util.mapper.TeacherMapper;
+import com.no_country.demo.util.mapper.UserMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -22,6 +24,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,6 +34,7 @@ import java.util.Map;
 public class UserController {
     UserServices userServices;
     StudentService studentService;
+    UserMapper userMapper;
     StudentMapper studentMapper;
     TeacherMapper teacherMapper;
 
@@ -92,5 +96,25 @@ public class UserController {
         userServices.updateUserById(id, updateUserDTO);
         return ResponseEntity.ok(Map.of("mensaje", "el usuario se actualizo correct"));
     }
+
+@Operation(
+        summary = "Obtener lista de usuarios",
+        description = "Este endpoint permite obtener una lista de todos los usuarios"
+)
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "200",
+                content = @Content(mediaType = "application/json",
+                        schema = @Schema(implementation = GetStudentDTO.class))),
+})
+@GetMapping("/list")
+public ResponseEntity<ResponseDTO> getAllUsers() {
+    List<UserEntity> users = userServices.getAllUsers()
+            ;
+    return ResponseEntity.ok(new ResponseDTO(
+            true,
+            "Lista de usuarios Exitosa",
+            users.stream().map(userMapper::toListUserDTO).toList()
+    ));
+}
 
 }

@@ -31,6 +31,7 @@ public class Evaluation {
     @Temporal(TemporalType.DATE) //almacena la parte de la fecha (año,mes,dia)
     private Date dateEvaluation;
     private String topicsEvaluation;
+    boolean isActive;
 //    // AGREGAR RELACION CON CALIFICACION
 //    @OneToMany(mappedBy = "evaluation", cascade = CascadeType.ALL)
 //    private List<Qualification> qualifications;

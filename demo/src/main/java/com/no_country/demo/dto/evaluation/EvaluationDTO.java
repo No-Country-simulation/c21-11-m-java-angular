@@ -8,7 +8,6 @@ import java.util.List;
 public record EvaluationDTO(
         Long id,
         Long subjectId, //id asignatura
-        String subjectName, // Nombre asignatura
         Date dateEvaluation,
         String topicsEvaluation,
        // List<QualificationDTO> qualifications, //
