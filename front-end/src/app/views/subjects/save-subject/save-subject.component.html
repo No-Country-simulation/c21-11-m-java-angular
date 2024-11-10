@@ -1,97 +1,105 @@
 <div class="flex justify-center">
 	<div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-3xl">
-		<div class="flex items-center mb-6 place-content-center">
-			<h1 class="text-2xl font-bold text-custom-purple">
-				Registrar asignatura
-			</h1>
+	  <!-- Título -->
+	  <div class="flex items-center mb-6 place-content-center">
+		<h1 class="text-2xl font-bold text-custom-purple">Registrar asignatura</h1>
+	  </div>
+  
+	  <!-- Mensaje informativo -->
+	  <p class="text-custom-pink text-sm mb-6 text-center">
+		Los campos marcados con * son obligatorios
+	  </p>
+  
+	  <!-- Formulario de registro de asignatura -->
+	  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+		<!-- Campo Nombre y Horario -->
+		<div class="grid grid-cols-2 gap-4 mb-4">
+		  <div>
+			<label for="name" class="block text-custom-purple text-sm font-medium mb-2">Nombre*</label>
+			<input type="text" id="name" name="name" required
+			  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple"
+			  formControlName="name" />
+			<p *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)"
+			  class="text-custom-pink font-medium text-base">
+			  Este campo es obligatorio.
+			</p>
+		  </div>
+		  <div>
+			<label for="schedule" class="block text-custom-purple text-sm font-medium mb-2">Horario*</label>
+			<input type="text" id="schedule" name="schedule" required
+			  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple"
+			  formControlName="schedule" />
+			<p *ngIf="registerForm.get('schedule')?.invalid && (registerForm.get('schedule')?.dirty || registerForm.get('schedule')?.touched)"
+			  class="text-custom-pink font-medium text-base">
+			  Horario introducido incorrecto.
+			</p>
+		  </div>
 		</div>
-		<p class="text-custom-pink text-sm mb-6 text-center">
-			Los campos marcados con * son obligatorios
-		</p>
-		<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-			<div class="grid grid-cols-2 gap-4 mb-4">
-				<div>
-					<label for="name" class="block text-custom-purple text-sm font-medium mb-2">Nombre*</label>
-					<input type="text" id="name" name="name" required
-						class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple"
-						formControlName="name" />
-				</div>
-				<div>
-					<label for="schedule" class="block text-custom-purple text-sm font-medium mb-2">Horario*</label>
-					<input type="text" id="schedule" name="schedule" required
-						class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple"
-						formControlName="schedule" />
-					@if (registerForm.get('schedule')?.invalid &&
-					(registerForm.get('schedule')?.dirty ||
-					registerForm.get('schedule')?.touched)) {
-					<p class="text-custom-pink font-medium text-base">
-						Horario introducido incorrecto
-					</p>
-					}
-				</div>
+  
+		<!-- Campo Temas y Descripción -->
+		<div class="grid grid-cols-2 gap-4 mb-4">
+		  <div>
+			<label for="topics" class="block text-custom-purple text-sm font-medium mb-2">Temas</label>
+			<textarea id="topics" name="topics"
+			  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple"
+			  formControlName="topics"></textarea>
+		  </div>
+		  <div>
+			<label for="description" class="block text-custom-purple text-sm font-medium mb-2">Descripción</label>
+			<textarea id="description" name="description"
+			  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple"
+			  formControlName="description"></textarea>
+		  </div>
+		</div>
+  
+		<!-- Checkbox de selección de días -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+		  <div>
+			<label class="block text-custom-purple text-sm font-semibold mb-3">Días*</label>
+			<div class="grid grid-cols-2 gap-4">
+			  <div *ngFor="let day of days" class="flex items-center space-x-2">
+				<input type="checkbox" [value]="day" (change)="onCheckboxChange($event)"
+				  class="form-checkbox h-4 w-4 text-custom-purple border-gray-300 focus:ring-custom-purple transition duration-150 ease-in-out" />
+				<label class="text-gray-700 text-sm">{{ day }}</label>
+			  </div>
 			</div>
-			<div class="grid grid-cols-2 gap-4 mb-4">
-				<div>
-					<label for="topics" class="block text-custom-purple text-sm font-medium mb-2">Temas</label>
-					<textarea id="topics" name="topics" required
-						class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple"
-						formControlName="topics"></textarea>
-				</div>
-				<div>
-					<label for="description"
-						class="block text-custom-purple text-sm font-medium mb-2">Descripción</label>
-					<textarea id="description" name="description" required
-						class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple"
-						formControlName="description"></textarea>
-				</div>
+		  </div>
+  
+		  <!-- Selección de Profesor -->
+		  <div class="flex justify-center">
+			<div class="w-full max-w-md">
+			  <div class="mb-4">
+				<label for="teacher" class="block text-custom-purple text-sm font-semibold mb-3">Profesor*</label>
+				<select id="teacher" name="teacher" required
+				  class="block w-full px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-custom-purple focus:border-transparent transition duration-150 ease-in-out"
+				  formControlName="teacher">
+				  <option value="">Seleccionar profesor</option>
+				  <option *ngFor="let teacher of teachers$ | async" [value]="teacher.id">
+					{{ teacher.firstName }} {{ teacher.lastName }}
+				  </option>
+				</select>
+			  </div>
+  
+			  <!-- Botón de Registrar -->
+			  <button type="submit"
+				class="w-full bg-custom-green text-black font-medium py-2 px-4 rounded-md mb-2 hover:bg-opacity-90 transition duration-300">
+				Registrar asignatura
+			  </button>
+  
+			  <!-- Botón de Reestablecer -->
+			  <button type="reset"
+				class="w-full bg-custom-gray text-black font-light py-2 px-4 rounded-md hover:bg-gray-300 transition duration-300">
+				Reestablecer asignatura
+			  </button>
 			</div>
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-				<!-- Checkbox de selección de días -->
-				<div>
-					<label class="block text-custom-purple text-sm font-semibold mb-3">Días*</label>
-					<div class="grid grid-cols-2 gap-4">
-						<div *ngFor="let day of days" class="flex items-center space-x-2">
-							<input type="checkbox" [value]="day" (change)="onCheckboxChange($event)"
-								class="form-checkbox h-4 w-4 text-custom-purple border-gray-300 focus:ring-custom-purple transition duration-150 ease-in-out" />
-							<label class="text-gray-700 text-sm">{{ day }}</label>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="flex justify-center">
-					<!-- Contenedor principal -->
-					<div class="w-full max-w-md">
-						<!-- Selección de Profesor -->
-						<div class="mb-4">
-							<label for="teacher"
-								class="block text-custom-purple text-sm font-semibold mb-3">Profesor*</label>
-							<select id="teacher" name="teacher" required
-								class="block w-full px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-custom-purple focus:border-transparent transition duration-150 ease-in-out"
-								formControlName="teacher">
-								<option value="">Seleccionar profesor</option>
-								<option *ngFor="let teacher of teachers$ | async" [value]="teacher.id">
-									{{ teacher.firstName }} {{ teacher.lastName }}
-								</option>
-							</select>
-						</div>
-						<!-- Botón de Registrar -->
-						<button type="submit"
-							class="w-full bg-custom-green text-black font-medium py-2 px-4 rounded-md mb-2 hover:bg-opacity-90 transition duration-300">
-							Registrar asignatura
-						</button>
-						<!-- Botón de Reestablecer -->
-						<button type="reset"
-							class="w-full bg-custom-gray text-black font-light py-2 px-4 rounded-md hover:bg-gray-300 transition duration-300">
-							Reestablecer asignatura
-						</button>
-					</div>
-				</div>
-
-
-			</div>
-
-
-		</form>
+		  </div>
+		</div>
+  
+		<!-- Mensaje de error o éxito dentro de la tarjeta -->
+		<div *ngIf="message" [ngClass]="{'bg-green-100 text-green-800': messageType === 'success', 'bg-red-100 text-red-800': messageType === 'error'}" class="w-full text-center py-3 font-semibold shadow-md rounded-md mb-4">
+		  {{ message }}
+		</div>
+	  </form>
 	</div>
-</div>
+  </div>
+  
